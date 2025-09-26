@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { TestDataFactory } from '../../test-data/sauvedemourl_const';
 import { GenericPageAction } from '../../utils/genericPageAction';
 
