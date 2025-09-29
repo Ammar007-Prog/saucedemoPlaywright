@@ -8,7 +8,7 @@ export class CheckoutPage{
     constructor(page, context){
         this.page = page;
         this.genericPageAction = new GenericPageAction(page);
-        this.locator_header = page.locator('.header_secondary_container');
+        this.locator_header = '.header_secondary_container';
         this.text_checkout_your_information = 'Checkout: Your Information';
         this.locator_firstname = '//input[@name="firstName"]';
         this.locator_lastname = '//input[@name="lastName"]';
@@ -17,7 +17,7 @@ export class CheckoutPage{
     }
 
     async verifyHeaderTextOnCheckoutPage(){
-        await expect(this.locator_header).toContainText(this.text_checkout_your_information);
+        await expect(this.page.locator(this.locator_header)).toContainText(this.text_checkout_your_information);
     }
 
     async fillInCheckoutInformationAndContinue(firstname, lastname, zipcode){

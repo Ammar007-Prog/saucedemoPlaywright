@@ -9,9 +9,9 @@ export class ShopingCartPage{
     constructor(page, context){
         this.page = page;
         this.genericPageAction = new GenericPageAction(page);
-        this.locator_subTotal = page.locator('.summary_subtotal_label');
-        this.locator_tax = page.locator('.summary_tax_label');
-        this.locator_total = page.locator('.summary_total_label');
+        this.locator_subTotal = '.summary_subtotal_label';
+        this.locator_tax = '.summary_tax_label';
+        this.locator_total = '.summary_total_label';
     }
 
     async clickOnCheckout(){
@@ -19,9 +19,9 @@ export class ShopingCartPage{
     }
 
     async verifyTotalAmountSumOfProductsSubTotalAndTax(){
-        const subTotal = await this.locator_subTotal.textContent();
-        const tax = await this.locator_tax.textContent();
-        const total = await this.locator_total.textContent();
+        const subTotal = await this.page.locator(this.locator_subTotal).textContent();
+        const tax = await this.page.locator(this.locator_tax).textContent();
+        const total = await this.page.locator(this.locator_total).textContent();
         const sumOfPriceAndTax = parseFloat(subTotal?.replace('Item total: $', '')) + parseFloat(tax?.replace('Tax: $', ''));
         expect(parseFloat(total?.replace('Total: $', ''))).toBeCloseTo(sumOfPriceAndTax, 2);
         console.log('Total price is correctly calculated as the sum of subtotal and tax.');

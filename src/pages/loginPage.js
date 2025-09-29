@@ -4,25 +4,16 @@ import { GenericPageAction } from '../../utils/genericPageAction';
 
 const urls = TestDataFactory.allUrls();
 
-// const usernameInput = '#user-name';
-// const passwordInput = '#password';
-//const loginButton = '#login-button';
-// const errorMessage = '[data-test="error"]';
-// const errorMessageForLockedUser = 'Epic sadface: Sorry, this user has been locked out.';
-
 export class LoginPage{
-
     constructor(page, context){
         this.page = page;
         this.genericPageAction = new GenericPageAction(page);
-        this.usernameInput = '#user-name';
-        this.passwordInput = '#password';
-        this.loginButton = '#login-button';
-        this.errorMessage = page.locator('[data-test="error"]');
-        this.errorMessageForLockedUser = 'Epic sadface: Sorry, this user has been locked out.';
+        this.locator_usernameInput = '#user-name';
+        this.locator_passwordInput = '#password';
+        this.locator_loginButton = '#login-button';
+        this.locator_errorMessage = '[data-test="error"]';
+        this.text_errorMessageForLockedUser = 'Epic sadface: Sorry, this user has been locked out.';
     }
-
-    
 
     async navigateToLoginPage(){
         const baseURL = urls.BASE_URL;
@@ -30,14 +21,13 @@ export class LoginPage{
     }
 
     async login(username, password){
-        await this.genericPageAction.enterText(this.usernameInput, username);
-        await this.genericPageAction.enterText(this.passwordInput, password);
-        await this.genericPageAction.clickOn(this.loginButton);
+        await this.genericPageAction.enterText(this.locator_usernameInput, username);
+        await this.genericPageAction.enterText(this.locator_passwordInput, password);
+        await this.genericPageAction.clickOn(this.locator_loginButton);
     }
-        
 
     async verifyErrorMessageForLockedUser(){
-        await expect(this.errorMessage).toHaveText(this.errorMessageForLockedUser);
+        await expect(this.page.locator(this.locator_errorMessage)).toHaveText(this.text_errorMessageForLockedUser);
     }
 
     async verifyLoginSuccess(){
